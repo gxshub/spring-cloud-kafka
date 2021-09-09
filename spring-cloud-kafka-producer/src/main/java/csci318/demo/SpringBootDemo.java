@@ -1,5 +1,6 @@
 package csci318.demo;
 
+import csci318.demo.model.Appliance;
 import csci318.demo.model.Quote;
 import csci318.demo.service.QuoteService;
 import org.slf4j.Logger;
@@ -9,15 +10,25 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
+import org.springframework.integration.support.MessageBuilder;
+import org.springframework.messaging.Message;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableBinding(Bindings.class)
 public class SpringBootDemo {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringBootDemo.class);
+	private static final String url = "https://random-data-api.com/api/appliance/random_appliance";
+	@Autowired
+	private Bindings bindings;
+	/*
 	@Autowired
 	private QuoteService quoteService;
+
+	 */
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootDemo.class, args);
@@ -39,10 +50,11 @@ public class SpringBootDemo {
 		return args -> {
 			//get 10 quotes
 			for (int i=0; i<10; i++) {
-				Quote quote = restTemplate.getForObject("https://quoters.apps.pcfone.io/api/random", Quote.class);
-				assert quote != null;
-				log.info(quote.toString());
-				quoteService.recordQuote(quote);
+				Appliance appliance = restTemplate.getForObject(url, Appliance.class);
+				assert appliance != null;
+				log.info(appliance.toString());
+				bindings.outbound().send(MessageBuilder.withPayload(appliance).build());
+				//quoteService.recordQuote(quote);
 			}
 		};
 	}
