@@ -16,15 +16,15 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableBinding(Bindings.class)
-public class SpringBootDemo {
+public class SpringBootKafkaProducer {
 
-	private static final Logger log = LoggerFactory.getLogger(SpringBootDemo.class);
+	private static final Logger log = LoggerFactory.getLogger(SpringBootKafkaProducer.class);
 	private static final String url = "https://random-data-api.com/api/appliance/random_appliance";
 	@Autowired
 	private Bindings bindings;
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootDemo.class, args);
+		SpringApplication.run(SpringBootKafkaProducer.class, args);
 	}
 
 	// With @Bean annotation of the following method, a RestTemplate object is injected.
