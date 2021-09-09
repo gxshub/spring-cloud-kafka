@@ -1,8 +1,7 @@
 package csci318.demo;
 
 import csci318.demo.model.Appliance;
-import csci318.demo.model.Quote;
-import csci318.demo.service.QuoteService;
+import csci318.demo.service.Bindings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.integration.support.MessageBuilder;
-import org.springframework.messaging.Message;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
@@ -24,11 +22,6 @@ public class SpringBootDemo {
 	private static final String url = "https://random-data-api.com/api/appliance/random_appliance";
 	@Autowired
 	private Bindings bindings;
-	/*
-	@Autowired
-	private QuoteService quoteService;
-
-	 */
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootDemo.class, args);

@@ -1,4 +1,4 @@
-package csci318.demo;
+package csci318.demo.service;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
