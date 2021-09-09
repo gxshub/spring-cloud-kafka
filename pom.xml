@@ -11,6 +11,7 @@
     <modules>
         <module>spring-cloud-kafka-consumer</module>
         <module>spring-cloud-kafka-producer</module>
+        <module>spring-cloud-kafka-processor</module>
     </modules>
 
     <properties>

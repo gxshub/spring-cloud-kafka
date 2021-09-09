@@ -1,0 +1,21 @@
+spring:
+  cloud.stream:
+    bindings:
+      outbound1:
+        destination: topic1
+    kafka.streams.binder:
+      configuration:
+        commit.interval.ms: 1000
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+      brokers: localhost
+      defaultBrokerPort: 9092
+      serdeError: logAndContinue
+    kafka.binder:
+      configuration:
+        commit.interval.ms: 1000
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+      brokers: localhost
+      defaultBrokerPort: 9092
+      serdeError: logAndContinue
