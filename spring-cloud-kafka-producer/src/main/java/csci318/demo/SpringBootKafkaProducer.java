@@ -1,6 +1,6 @@
 package csci318.demo;
 
-import csci318.demo.binder.Publisher;
+import csci318.demo.service.Publisher;
 import csci318.demo.model.Appliance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
