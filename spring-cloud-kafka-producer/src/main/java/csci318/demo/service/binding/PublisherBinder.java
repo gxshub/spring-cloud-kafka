@@ -5,7 +5,7 @@ import org.springframework.messaging.MessageChannel;
 
 public interface PublisherBinder {
 
-    @Output(BoundNames.OUTBOUND)
+    @Output(BinderNames.OUTBOUND)
     MessageChannel outbound();
 
 }
