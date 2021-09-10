@@ -15,13 +15,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableBinding(InOutBound.class)
+//@EnableBinding(InOutBound.class)
 public class SpringBootKafkaProducer {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringBootKafkaProducer.class);
 	private static final String url = "https://random-data-api.com/api/appliance/random_appliance";
+
+	/*
 	@Autowired
 	private Publisher publisher;
+
+	 */
+
+
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootKafkaProducer.class, args);
@@ -37,7 +43,28 @@ public class SpringBootKafkaProducer {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+	/*
+	@Bean
+	public Publisher publisher() {
+		return new Publisher();
+	}
 
+	 */
+
+	@Bean
+	public CommandLineRunner run(RestTemplate restTemplate, Publisher publisher) throws Exception {
+		return args -> {
+			//get 10 quotes
+			for (int i=0; i<10; i++) {
+				Appliance appliance = restTemplate.getForObject(url, Appliance.class);
+				assert appliance != null;
+				log.info(appliance.toString());
+				publisher.publish(appliance);
+			}
+		};
+	}
+
+	/*
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
@@ -50,5 +77,7 @@ public class SpringBootKafkaProducer {
 			}
 		};
 	}
+
+	 */
 
 }
