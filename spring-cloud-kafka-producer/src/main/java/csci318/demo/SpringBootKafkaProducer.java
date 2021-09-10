@@ -1,7 +1,8 @@
 package csci318.demo;
 
+import csci318.demo.binder.Publisher;
 import csci318.demo.model.Appliance;
-import csci318.demo.service.Bindings;
+import csci318.demo.binder.binding.InOutBound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +12,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.context.annotation.Bean;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableBinding(Bindings.class)
+@EnableBinding(InOutBound.class)
 public class SpringBootKafkaProducer {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringBootKafkaProducer.class);
 	private static final String url = "https://random-data-api.com/api/appliance/random_appliance";
 	@Autowired
-	private Bindings bindings;
+	private Publisher publisher;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootKafkaProducer.class, args);
@@ -46,8 +46,7 @@ public class SpringBootKafkaProducer {
 				Appliance appliance = restTemplate.getForObject(url, Appliance.class);
 				assert appliance != null;
 				log.info(appliance.toString());
-				bindings.outbound().send(MessageBuilder.withPayload(appliance).build());
-				//quoteService.recordQuote(quote);
+				publisher.publish(appliance);
 			}
 		};
 	}

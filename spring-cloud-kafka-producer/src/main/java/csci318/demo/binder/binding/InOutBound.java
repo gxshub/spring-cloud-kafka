@@ -1,11 +1,11 @@
-package csci318.demo.service;
+package csci318.demo.binder.binding;
 
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 
-public interface Bindings {
+public interface InOutBound {
 
-    // The string "outbound1" is from application.yml.
-    @Output("outbound1")
+    @Output(BoundName.OUTBOUND)
     MessageChannel outbound();
+
 }
