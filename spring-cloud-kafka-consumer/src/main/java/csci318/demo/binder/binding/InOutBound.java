@@ -1,11 +1,10 @@
-package csci318.demo.service;
+package csci318.demo.binder.binding;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.messaging.SubscribableChannel;
 
-public interface Bindings {
+public interface InOutBound {
 
-    // String "inbound1" is specified in application.yml
-    @Input("inbound1")
+    @Input(BoundName.INBOUND)
     SubscribableChannel inbound();
 }
