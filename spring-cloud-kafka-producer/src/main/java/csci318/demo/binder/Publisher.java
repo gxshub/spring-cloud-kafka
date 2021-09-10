@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @EnableBinding(InOutBound.class)
 public class Publisher {
 
-    private InOutBound binding;
+    private InOutBound inOutBound;
 
-    public Publisher(InOutBound binding) {
-        this.binding = binding;
+    public Publisher(InOutBound inOutBound) {
+        this.inOutBound = inOutBound;
     }
 
     public void publish(Appliance appliance) {
-        this.binding.outbound().send(MessageBuilder.withPayload(appliance).build());
+        this.inOutBound.outbound().send(MessageBuilder.withPayload(appliance).build());
     }
 
 }
