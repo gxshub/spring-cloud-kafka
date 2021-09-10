@@ -33,15 +33,18 @@ public class SpringBootKafkaProducer {
 	}
 
 	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate, Publisher publisher)
-			throws Exception, InterruptedException {
+	public CommandLineRunner run(RestTemplate restTemplate, Publisher publisher) throws Exception {
 		return args -> {
-			//get 10 quotes
-			for (int i=0; i<10; i++) {
-				Appliance appliance = restTemplate.getForObject(url, Appliance.class);
-				assert appliance != null;
-				log.info(appliance.toString());
-				publisher.publish(appliance);
+			try{
+				while(!Thread.currentThread().isInterrupted()){
+					Appliance appliance = restTemplate.getForObject(url, Appliance.class);
+					assert  appliance != null;
+					log.info(appliance.toString());
+					publisher.publish(appliance);
+					Thread.sleep(1200);
+				}
+			}
+			catch(InterruptedException ignored){
 			}
 		};
 	}
