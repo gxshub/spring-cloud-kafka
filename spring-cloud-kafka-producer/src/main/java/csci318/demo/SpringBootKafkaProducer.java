@@ -1,6 +1,6 @@
 package csci318.demo;
 
-import csci318.demo.service.Publisher;
+import csci318.demo.service.AppliancePublisher;
 import csci318.demo.model.Appliance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class SpringBootKafkaProducer {
 	}
 
 	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate, Publisher publisher) throws Exception {
+	public CommandLineRunner run(RestTemplate restTemplate, AppliancePublisher publisher) throws Exception {
 		return args -> {
 			try{
 				while(!Thread.currentThread().isInterrupted()){

@@ -1,6 +1,6 @@
-package csci318.demo.service.binding;
+package csci318.demo.binding;
 
-public class BinderNames {
+public class BinderRegister {
     // Names here are from application.yml
     public static final String OUTBOUND = "outbound1";
 }
