@@ -1,4 +1,4 @@
-package csci318.demo.binder.binding;
+package csci318.demo.binding;
 
 public class BoundName {
 

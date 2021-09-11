@@ -2,7 +2,7 @@ spring:
   cloud.stream:
     bindings:
       inbound1:
-        destination: topic1
+        destination: topic2
     kafka.streams.binder:
       configuration:
         commit.interval.ms: 1000

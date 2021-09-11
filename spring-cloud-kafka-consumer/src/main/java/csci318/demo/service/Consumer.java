@@ -1,7 +1,7 @@
-package csci318.demo.binder;
+package csci318.demo.service;
 
-import csci318.demo.binder.binding.BoundName;
-import csci318.demo.binder.binding.InOutBound;
+import csci318.demo.binding.BoundName;
+import csci318.demo.binding.InOutBound;
 import csci318.demo.model.Appliance;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
