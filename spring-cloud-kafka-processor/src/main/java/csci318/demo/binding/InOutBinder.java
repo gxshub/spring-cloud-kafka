@@ -1,14 +1,14 @@
-package csci318.demo.service;
+package csci318.demo.binding;
 
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 
-public interface Bindings {
+public interface InOutBinder {
 
-    @Input(BindingNames.INBOUND)
+    @Input(BinderRegister.INBOUND)
     KStream<?, ?> streamIn();
 
-    @Output(BindingNames.OUTBOUND)
+    @Output(BinderRegister.OUTBOUND)
     KStream<?, ?> streamOut();
 }

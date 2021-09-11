@@ -1,9 +1,14 @@
+server.port: 8183
 spring.cloud.stream.bindings:
       inbound:
         destination: topic1
       outbound:
         destination: topic2
-
+spring.cloud.stream.kafka.streams.binder:
+  brokers: localhost:9092
+  configuration:
+    commit.interval.ms: 1000
+  serdeError: logAndContinue
 spring.cloud.stream.kafka.streams.bindings:
   inbound:
     consumer:
@@ -12,14 +17,13 @@ spring.cloud.stream.kafka.streams.bindings:
         default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
         spring.json.trusted.packages: '*'
         spring.json.value.default.type: csci318.demo.model.Appliance
-
-spring.cloud.stream.kafka.streams.binder:
-  configuration:
-    commit.interval.ms: 1000
-  brokers: localhost
-  defaultBrokerPort: 9092
-  serdeError: logAndContinue
-
+  outbound:
+    producer:
+      configuration:
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
+        spring.json.trusted.packages: '*'
+        spring.json.value.default.type: csci318.demo.model.Appliance
 #spring.cloud.stream.kafka.binder:
 #  configuration:
 #    commit.interval.ms: 1000
