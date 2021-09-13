@@ -17,6 +17,7 @@ spring.cloud.stream.kafka.streams.bindings:
         default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
         spring.json.trusted.packages: '*'
         spring.json.value.default.type: csci318.demo.model.Appliance
+      #materializedAs: my-store1
   outbound:
     producer:
       configuration:
@@ -24,12 +25,8 @@ spring.cloud.stream.kafka.streams.bindings:
         default.value.serde: org.apache.kafka.common.serialization.Serdes$LongSerde
         spring.json.trusted.packages: '*'
         spring.json.value.default.type: csci318.demo.model.Appliance
-#spring.cloud.stream.kafka.binder:
-#  configuration:
-#    commit.interval.ms: 1000
-#  brokers: localhost
-#  defaultBrokerPort: 9092
-#  serdeError: logAndContinue
+
+#spring.cloud.stream.kafka.streams.binder.stateStoreRetry.maxAttempts: 3
 
 
 
