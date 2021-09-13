@@ -12,7 +12,7 @@ In the Terminal, `cd` to the unzip folder and start Kakfa with the following com
 
 ### Apache Kafka Setup in Windows 
 Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and unzip it to 
-such a directory such as `C:\kafka` &ndash; 
+such a directory as `C:\kafka` &ndash; 
 Windows does not like a complex path name. 
 
 In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the string `dataDir=/tmp/zookeeper`. In `C:\kafka\config\server.properties`, change `log.dirs=/tmp/kafka-logs` to `log.dirs=.kafka-log`.
