@@ -2,7 +2,7 @@
 
 ### Apache Kakfa Setup in Linux/MacOS
 Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and upzip it.
-In the Terminal, navigate to the unzip folder and start Kakfa with the following commands:
+In the Terminal, `cd` to the unzip folder and start Kakfa with the following commands:
 ```bash
 ./bin/zookeeper-server-start.sh
 ```
@@ -11,8 +11,8 @@ In the Terminal, navigate to the unzip folder and start Kakfa with the following
 ```
 
 ### Apache Kafka Setup in Windows 
-Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads`.
-Unzip the package to a home directory with a simple path (e.g., `C:\kafka`) &ndash; 
+Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and unzip it to 
+such a directory such as `C:\kafka` &ndash; 
 Windows does not like a complex path name. 
 
 In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the string `dataDir=/tmp/zookeeper`. In `C:\kafka\config\server.properties`, change `log.dirs=/tmp/kafka-logs` to `log.dirs=.kafka-log`.
