@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
-./spring-cloud-kafka-consumer
+./spring-cloud-kafka-consumer/
