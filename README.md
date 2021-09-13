@@ -1,7 +1,7 @@
 # Spring Cloud Stream for kafka Streams
 
 ### Apache Kakfa Setup in Linux/MacOS
-Download the Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and upzip it.
+Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and upzip it.
 In the Terminal, navigate to the unzip folder and start Kakfa with the following commands:
 ```bash
 ./bin/zookeeper-server-start.sh
@@ -11,7 +11,7 @@ In the Terminal, navigate to the unzip folder and start Kakfa with the following
 ```
 
 ### Apache Kafka Setup in Windows 
-Download the Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads`.
+Download an Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads`.
 Unzip the package to a home directory with a simple path (e.g., `C:\kafka`) &ndash; 
 Windows does not like a complex path name. 
 
@@ -26,5 +26,5 @@ Use the following two commands in the Windows CMD (one in each window) to start 
 ```
 
 #### Kafka Topic Data
-Sometimes you may want to clean up data in the Kafka topcis. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-log` and `/tmp/kafka-streams`; and in Windows, delete `C:\kakfa\.dataDirzookeeper` and `C:\kakfa\.kakfa-log`.
+Sometimes you may want to clean up data in the Kafka topics. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-log` and `/tmp/kafka-streams`; and in Windows, delete `C:\kakfa\.dataDirzookeeper` and `C:\kakfa\.kakfa-log`.
 

@@ -3,9 +3,9 @@ package csci318.demo.binding;
 import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 
-public interface PublisherBinder {
+public interface OutBinding {
 
-    @Output(BinderRegister.OUTBOUND)
+    @Output(ChannelNames.OUTBOUND)
     MessageChannel outbound();
 
 }
