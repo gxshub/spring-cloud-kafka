@@ -19,10 +19,10 @@ In the configuration file `C:\kafka\config\zookeeper.properties`, comment out th
 
 Use the following two commands in the Windows CMD (one in each window) to start Kafka:
 ```bash
-.\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
+C:\kafka\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 ```
 ```bash
-.\bin\windows\kafka-server-start.bat .\config\server.properties
+C:\kafka\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
 
 #### Kafka Topic Data
