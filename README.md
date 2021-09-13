@@ -1,6 +1,16 @@
 # Spring Cloud Stream for kafka Streams
 
-### Kafka Setup in Windows 
+### Apache Kakfa Setup in Linux/MacOS
+Download the Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads` and upzip it.
+In the Terminal, navigate to the unzip folder and start Kakfa with the following commands:
+```bash
+./bin/zookeeper-server-start.sh
+```
+```bash
+./bin/kafka-server-start.sh
+```
+
+### Apache Kafka Setup in Windows 
 Download the Apache Kafka package (i.e., `tgz` file) from `https://kafka.apache.org/downloads`.
 Unzip the package to a home directory with a simple path (e.g., `C:\kafka`) &ndash; 
 Windows does not like a complex path name. 
@@ -8,10 +18,10 @@ Windows does not like a complex path name.
 In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the string `dataDir=/tmp/zookeeper`. In `C:\kafka\config\server.properties`, change `log.dirs=/tmp/kafka-logs` to `log.dirs=.kafka-log`.
 
 Use the following two commands in the Windows CMD (one in each window) to start Kafka:
-```
+```bash
 .\bin\windows\zookeeper-server-start.bat .\config\zookeeper.properties
 ```
-```
+```bash
 .\bin\windows\kafka-server-start.bat .\config\server.properties
 ```
 
