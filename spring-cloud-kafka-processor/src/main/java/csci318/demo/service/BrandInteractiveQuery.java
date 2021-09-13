@@ -1,49 +1,47 @@
 package csci318.demo.service;
 
-/* This class computes a stream of brand quantities
- * and creates a state store for interactive queries.
- */
+import csci318.demo.model.BrandQuantity;
+import org.apache.kafka.streams.state.KeyValueIterator;
+import org.apache.kafka.streams.state.QueryableStoreTypes;
+import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
+import org.springframework.cloud.stream.binder.kafka.streams.InteractiveQueryService;
+import org.springframework.stereotype.Service;
 
-import csci318.demo.binding.BinderRegister;
-import csci318.demo.binding.InOutBinder;
-import csci318.demo.model.Appliance;
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.common.utils.Bytes;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KTable;
-import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.state.KeyValueStore;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.messaging.handler.annotation.SendTo;
+import java.util.ArrayList;
+import java.util.List;
 
-
-@EnableBinding(InOutBinder.class)
+@Service
 public class BrandInteractiveQuery {
-    
-    public final static String STATE_STORE = "my-store";
 
-    @StreamListener(BinderRegister.INBOUND)
-    @SendTo(BinderRegister.OUTBOUND)
-    public KStream<String, Long> process(KStream<Object, Appliance> applianceStream) {
+    private InteractiveQueryService interactiveQueryService;
 
-        KTable<String, Long> brandQuantityTable = applianceStream.
-                map((key,appliance) -> {
-                    String newkey = Integer.toString(appliance.getId());
-                    String value = appliance.getBrand();
-                    return KeyValue.pair(newkey, value);
-                }).
-                groupBy((keyIgnored, value) -> value).count(
-                Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(STATE_STORE).
-                        withKeySerde(Serdes.String()).
-                        withValueSerde(Serdes.Long())
-                );
-
-        // use the following code for testing
-        // brandQuantityTable.toStream().print(Printed.<String, Long>toSysOut().withLabel("console output"));
-
-        return brandQuantityTable.toStream();
+    //@Autowired
+    public BrandInteractiveQuery(InteractiveQueryService interactiveQueryService) {
+        this.interactiveQueryService = interactiveQueryService;
     }
-    
+
+    public BrandQuantity getBrandQuantity(String brandName) {
+        if (keyValueStore().get(brandName) != null) {
+            long quantity = keyValueStore().get(brandName);
+            return new BrandQuantity(brandName, quantity);
+        } else {
+            return null; //TODO: should use an Exception here.
+        }
+    }
+
+    public List<String> getBrandNames() {
+        List<String> brandList = new ArrayList<>();
+        KeyValueIterator<String, Long> all = keyValueStore().all();
+        while (all.hasNext()) {
+            String next = all.next().key;
+            brandList.add(next);
+        }
+        return brandList;
+    }
+
+    private ReadOnlyKeyValueStore<String, Long> keyValueStore() {
+        return this.interactiveQueryService.getQueryableStore(ApplianceStreamProcessing.STATE_STORE,
+                QueryableStoreTypes.keyValueStore());
+    }
+
 }

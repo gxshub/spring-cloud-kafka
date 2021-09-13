@@ -4,11 +4,11 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
 
-public interface InOutBinder {
+public interface IOBinding {
 
-    @Input(BinderRegister.INBOUND)
+    @Input(ChannelNames.INBOUND)
     KStream<?, ?> streamIn();
 
-    @Output(BinderRegister.OUTBOUND)
+    @Output(ChannelNames.OUTBOUND)
     KStream<?, ?> streamOut();
 }

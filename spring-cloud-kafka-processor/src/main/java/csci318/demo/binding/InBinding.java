@@ -3,9 +3,9 @@ package csci318.demo.binding;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.cloud.stream.annotation.Input;
 
-public interface InOnlyBinder {
+public interface InBinding {
 
-    @Input(BinderRegister.INBOUND)
+    @Input(ChannelNames.INBOUND)
     KStream<?, ?> streamInOnly();
 
 }
