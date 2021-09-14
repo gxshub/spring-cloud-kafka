@@ -27,7 +27,7 @@ C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
 ```
 
 #### Kafka Topic Data
-Sometimes you may want to clean up data in the Kafka topics to start over. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-log` and `/tmp/kafka-streams`. In Windows, delete the folders `C:\kakfa\.dataDirzookeeper` and `C:\kakfa\.kakfa-log`.
+Sometimes you may want to clean up data in the Kafka topics to start over. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-log` and `/tmp/kafka-streams`. In Windows, delete the folders `C:\kafka\.dataDirzookeeper` and `C:\kafka\.kafka-log`.
 
 ## The Applications 
 The proceduer gets `appliance` JSON data from a public [API](https://random-data-api.com/api/appliance/random_appliance) and publishes it to a Kafka topic. The processor subscribes to that Kafka topic, computes a total count for each (appliance) `brand` and publishes the results to another Kakfa topic. The processor also implements an interactive query servce that allows users to query the results via REST.
