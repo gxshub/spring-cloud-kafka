@@ -3,7 +3,7 @@
 ### Apache Kafka Setup
 #### Linux and MacOS
 Download a **binary package** of Apache Kafka (e.g., `kafka_2.13-2.8.0.tgz`) from `https://kafka.apache.org/downloads` and upzip it.
-In the Terminal, `cd` to the unzip folder and start Kakfa with the following commands:
+In the Terminal, `cd` to the unzip folder, and start Kakfa with the following commands in two sessions:
 ```bash
 ./bin/zookeeper-server-start.sh
 ```
@@ -15,7 +15,7 @@ In the Terminal, `cd` to the unzip folder and start Kakfa with the following com
 Download a **binary package** of Apache Kafka (e.g., `kafka_2.13-2.8.0.tgz`) from `https://kafka.apache.org/downloads` and unzip it to 
 such a directory as `C:\kafka`&mdash;Windows does not like a complex path name (!). 
 
-In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the string `dataDir=/tmp/zookeeper`. In `C:\kafka\config\server.properties`, change `log.dirs=/tmp/kafka-logs` to `log.dirs=.kafka-log`.
+In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the line `"dataDir=/tmp/zookeeper"`. In `C:\kafka\config\server.properties`, change the line `"log.dirs=/tmp/kafka-logs"` to `"log.dirs=.kafka-log"`.
 
 Use the following two commands in the Windows CMD (one in each window) to start Kafka:
 ```bash
