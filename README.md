@@ -36,11 +36,13 @@ and publishes the results to another Kafka topic named `"brand-topic"`.
 The processor also implements an interactive query service that allows users to query the results via REST.
 The consumer subscribes to `"brand-topic"` and logs the records.
 
-When the two applications are running, use the following URL to get a list of `Brand` names:
+### Interactive queries
+When the producer and processor are running, 
+get a list of `Brand` names with the following URL:
 ```url
 http://localhost:8183/brands/all
 ```
-Then, use the following URL (and refresh it) to get the updating result for each `Brand`, e.g. `IKEA`:
+Then, use the following URL and refresh it to get the updating result for a `Brand` (e.g. `IKEA`):
 ```url
 http://localhost:8183/brand/IKEA/quantity
 ```
