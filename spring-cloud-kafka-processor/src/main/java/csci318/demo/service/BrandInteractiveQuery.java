@@ -1,6 +1,5 @@
 package csci318.demo.service;
 
-import csci318.demo.model.BrandQuantity;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class BrandInteractiveQuery {
@@ -20,12 +20,13 @@ public class BrandInteractiveQuery {
         this.interactiveQueryService = interactiveQueryService;
     }
 
-    public BrandQuantity getBrandQuantity(String brandName) {
+    public long getBrandQuantity(String brandName) {
         if (keyValueStore().get(brandName) != null) {
-            long quantity = keyValueStore().get(brandName);
-            return new BrandQuantity(brandName, quantity);
+            return keyValueStore().get(brandName);
+            //long quantity = keyValueStore().get(brandName);
+            //return new BrandQuantity(brandName, quantity);
         } else {
-            return null; //TODO: should use an Exception here.
+            throw new NoSuchElementException(); //TODO: should use a customised exception.
         }
     }
 

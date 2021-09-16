@@ -1,6 +1,5 @@
 package csci318.demo.controller;
 
-import csci318.demo.model.BrandQuantity;
 import csci318.demo.service.BrandInteractiveQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ public class BrandQueryController {
     BrandInteractiveQuery brandInteractiveQuery;
 
     @GetMapping("/brand/{brandName}/quantity")
-    BrandQuantity getBrandQuantityByName(@PathVariable String brandName) {
+    long getBrandQuantityByName(@PathVariable String brandName) {
         return brandInteractiveQuery.getBrandQuantity(brandName);
     }
 
