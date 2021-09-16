@@ -13,6 +13,7 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -21,33 +22,28 @@ import org.springframework.messaging.handler.annotation.SendTo;
 
 @EnableBinding(StreamsBinding.class)
 public class ApplianceStreamProcessing {
-    
+
     public final static String STATE_STORE = "my-store";
 
     @StreamListener(StreamsBinding.INBOUND)
     @SendTo(StreamsBinding.OUTBOUND)
     public KStream<String, BrandQuantity> process(KStream<Object, Appliance> applianceStream) {
 
-        KTable<String, Long> brandKTable =  applianceStream.
-                map((key,appliance) -> {
-                    String newkey = Integer.toString(appliance.getId());
-                    String value = appliance.getBrand();
-                    return KeyValue.pair(newkey, value);
-                }).
-                groupBy((keyIgnored, value) -> value).count(
-                Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(STATE_STORE).
+        KTable<String, Long> brandKTable = applianceStream.
+                mapValues(Appliance::getBrand).
+                groupBy((keyIgnored, value) -> value).
+                count(Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(STATE_STORE).
                         withKeySerde(Serdes.String()).
-                        withValueSerde(Serdes.Long())
-                );
+                        withValueSerde(Serdes.Long()));
 
         KStream<String, BrandQuantity> brandQuantityStream = brandKTable.
                 toStream().
-                map((k,v) -> KeyValue.pair(k, new BrandQuantity(k,v)));
+                map((k, v) -> KeyValue.pair(k, new BrandQuantity(k, v)));
 
         // use the following code for testing
-        //brandQuantityStream.print(Printed.<String, BrandQuantity>toSysOut().withLabel("Console Output"));
+        brandQuantityStream.print(Printed.<String, BrandQuantity>toSysOut().withLabel("Console Output"));
 
         return brandQuantityStream;
     }
-    
+
 }
