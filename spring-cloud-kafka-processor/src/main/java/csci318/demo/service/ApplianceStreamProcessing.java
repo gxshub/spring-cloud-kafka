@@ -4,8 +4,7 @@ package csci318.demo.service;
  * and creates a state store for interactive queries.
  */
 
-import csci318.demo.binding.ChannelNames;
-import csci318.demo.binding.IOBinding;
+import csci318.demo.binding.StreamsBinding;
 import csci318.demo.model.Appliance;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
@@ -19,13 +18,13 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 
-@EnableBinding(IOBinding.class)
+@EnableBinding(StreamsBinding.class)
 public class ApplianceStreamProcessing {
     
     public final static String STATE_STORE = "my-store";
 
-    @StreamListener(ChannelNames.INBOUND)
-    @SendTo(ChannelNames.OUTBOUND)
+    @StreamListener(StreamsBinding.INBOUND)
+    @SendTo(StreamsBinding.OUTBOUND)
     public KStream<String, Long> process(KStream<Object, Appliance> applianceStream) {
 
         KTable<String, Long> brandQuantityTable = applianceStream.

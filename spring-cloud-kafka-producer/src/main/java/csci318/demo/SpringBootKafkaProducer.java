@@ -1,6 +1,6 @@
 package csci318.demo;
 
-import csci318.demo.binding.OutBinding;
+import csci318.demo.binding.ProducerBinding;
 import csci318.demo.model.Appliance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import org.springframework.integration.support.MessageBuilder;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableBinding(OutBinding.class)
+@EnableBinding(ProducerBinding.class)
 public class SpringBootKafkaProducer {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringBootKafkaProducer.class);
@@ -36,14 +36,14 @@ public class SpringBootKafkaProducer {
 	}
 
 	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate, OutBinding outBinding) throws Exception {
+	public CommandLineRunner run(RestTemplate restTemplate, ProducerBinding binding) throws Exception {
 		return args -> {
 			try{
 				while(!Thread.currentThread().isInterrupted()){
 					Appliance appliance = restTemplate.getForObject(url, Appliance.class);
 					assert  appliance != null;
 					log.info(appliance.toString());
-					outBinding.outbound().send(MessageBuilder.withPayload(appliance).build());
+					binding.outbound().send(MessageBuilder.withPayload(appliance).build());
 					Thread.sleep(1200);
 				}
 			}
