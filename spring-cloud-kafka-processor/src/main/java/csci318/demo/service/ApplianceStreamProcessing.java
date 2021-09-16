@@ -13,7 +13,6 @@ import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
-import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -46,7 +45,7 @@ public class ApplianceStreamProcessing {
                 map((k,v) -> KeyValue.pair(k, new BrandQuantity(k,v)));
 
         // use the following code for testing
-        brandQuantityStream.print(Printed.<String, BrandQuantity>toSysOut().withLabel("Console Output"));
+        //brandQuantityStream.print(Printed.<String, BrandQuantity>toSysOut().withLabel("Console Output"));
 
         return brandQuantityStream;
     }
