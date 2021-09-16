@@ -21,25 +21,23 @@ import java.util.function.Function;
 
 @Configuration
 public class ApplianceStreamProcessing {
-    
+
     public final static String STATE_STORE = "my-store";
 
     @Bean
-    public Function<KStream<?,Appliance>, KStream<String, BrandQuantity>> process() {
+    public Function<KStream<?, Appliance>, KStream<String, BrandQuantity>> process() {
         return inputStream -> {
-            KTable<String, Long> brandKTable = inputStream.map((key,appliance) -> {
-                String newkey = Integer.toString(appliance.getId());
-                String value = appliance.getBrand();
-                return KeyValue.pair(newkey, value);
-            }).
-            groupBy((keyIgnored, value) -> value).count(
-                    Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(STATE_STORE).
-                            withKeySerde(Serdes.String()).
-                            withValueSerde(Serdes.Long())
-            );
+            KTable<String, Long> brandKTable = inputStream.
+                    mapValues(Appliance::getBrand).
+                    groupBy((keyIgnored, value) -> value).
+                    count(
+                            Materialized.<String, Long, KeyValueStore<Bytes, byte[]>>as(STATE_STORE).
+                                    withKeySerde(Serdes.String()).
+                                    withValueSerde(Serdes.Long())
+                    );
             KStream<String, BrandQuantity> brandQuantityStream = brandKTable.
                     toStream().
-                    map((k,v) -> KeyValue.pair(k, new BrandQuantity(k,v)));
+                    map((k, v) -> KeyValue.pair(k, new BrandQuantity(k, v)));
             // use the following code for testing
             brandQuantityStream.print(Printed.<String, BrandQuantity>toSysOut().withLabel("Console Output"));
 
