@@ -3,7 +3,7 @@
 ### Apache Kafka Setup
 #### Linux and MacOS
 Download a **binary package** of Apache Kafka (e.g., `kafka_2.13-2.8.0.tgz`) from `https://kafka.apache.org/downloads` and upzip it.
-In the Terminal, `cd` to the unzip folder, and start Kakfa with the following commands in two sessions:
+In the Terminal, `cd` to the unzip folder, and start Kakfa with the following commands (each in a separate Terminal session):
 ```bash
 ./bin/zookeeper-server-start.sh
 ```
@@ -15,7 +15,7 @@ In the Terminal, `cd` to the unzip folder, and start Kakfa with the following co
 Download a **binary package** of Apache Kafka (e.g., `kafka_2.13-2.8.0.tgz`) from `https://kafka.apache.org/downloads` and unzip it to 
 such a directory as `C:\kafka`&mdash;Windows does not like a complex path name (!). 
 
-In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the line `"dataDir=/tmp/zookeeper"`. In `C:\kafka\config\server.properties`, change the line `"log.dirs=/tmp/kafka-logs"` to `"log.dirs=.kafka-log"`.
+In the configuration file `C:\kafka\config\zookeeper.properties`, comment out the line `"dataDir=/tmp/zookeeper"`. In `C:\kafka\config\server.properties`, change the line `"log.dirs=/tmp/kafka-logs"` to `"log.dirs=.kafka-logs"`.
 
 Use the following two commands in the Windows CMD (one in each window) to start Kafka:
 ```bash
@@ -26,7 +26,7 @@ C:\kafka\bin\windows\kafka-server-start.bat C:\kafka\config\server.properties
 ```
 
 #### Kafka Topic Data
-Sometimes you may want to clean up data in the Kafka topics to start over. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-log` and `/tmp/kafka-streams`. In Windows, delete the folders `C:\kafka\.dataDirzookeeper` and `C:\kafka\.kafka-log`.
+Sometimes you need to clean up data in the Kafka topics to start over. For this purpose, in Linux/MacOS, delete the folders `/tmp/zookeeper`, `/tmp/kafka-logs` and `/tmp/kafka-streams`. In Windows, delete the folders `C:\kafka\.dataDirzookeeper` and `C:\kafka\.kafka-logs`.
 
 ## The Applications 
 The producer gets `Appliance` JSON data from a public [API](https://random-data-api.com/api/appliance/random_appliance) and 
@@ -37,7 +37,7 @@ The processor also implements an interactive query service that allows users to 
 The consumer subscribes to `"brand-topic"` and logs the records.
 
 ### Interactive queries
-When the producer and processor are running, 
+After running the producer and processor, 
 get a list of `Brand` names with the following URL:
 ```url
 http://localhost:8183/brands/all
