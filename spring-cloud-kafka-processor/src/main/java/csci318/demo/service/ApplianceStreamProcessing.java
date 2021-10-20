@@ -67,11 +67,12 @@ public class ApplianceStreamProcessing {
         };
     }
 
+    // a custom serde for the "QUIPMENT_STATE_STORE" state store
+    // Can compare its configuration with the contents in application.yml
     public Serde<Equipment> equipmentSerde(){
         final JsonSerde<Equipment> equipmentJsonSerde = new JsonSerde<>();
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "csci318.demo.model.Equipment");
-        configProps.put(JsonDeserializer.USE_TYPE_INFO_HEADERS,true);
         configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         equipmentJsonSerde.configure(configProps, false);
         return equipmentJsonSerde;
