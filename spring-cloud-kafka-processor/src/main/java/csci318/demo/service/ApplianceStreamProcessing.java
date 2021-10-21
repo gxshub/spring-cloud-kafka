@@ -46,8 +46,8 @@ public class ApplianceStreamProcessing {
             }).toTable(
                     Materialized.<String, Equipment, KeyValueStore<Bytes, byte[]>>as(EQUIPMENT_STATE_STORE).
                             withKeySerde(Serdes.String()).
-                            // a custom serde for this state store
-                                    withValueSerde(equipmentSerde())
+                            // a custom value serde for this state store
+                            withValueSerde(equipmentSerde())
             );
 
             KTable<String, Long> brandKTable = inputStream.
