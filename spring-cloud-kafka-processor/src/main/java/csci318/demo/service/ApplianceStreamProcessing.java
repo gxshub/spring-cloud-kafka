@@ -1,7 +1,7 @@
 package csci318.demo.service;
 
 /* This class computes a stream of brand quantities
- * and creates a state store for interactive queries.
+ * and creates state stores for interactive queries.
  */
 
 import csci318.demo.model.Appliance;
@@ -35,17 +35,19 @@ public class ApplianceStreamProcessing {
     public Function<KStream<?, Appliance>, KStream<String, BrandQuantity>> process() {
         return inputStream -> {
 
-            inputStream.map((k, v)-> {
+            inputStream.map((k, v) -> {
                 String equipment_name = v.getEquipment();
                 String brand_name = v.getBrand();
                 Equipment equipment = new Equipment();
                 equipment.setEquipment(equipment_name);
                 equipment.setBrand(brand_name);
-                String new_key = brand_name+equipment_name;
+                String new_key = brand_name + equipment_name;
                 return KeyValue.pair(new_key, equipment);
             }).toTable(
                     Materialized.<String, Equipment, KeyValueStore<Bytes, byte[]>>as(EQUIPMENT_STATE_STORE).
-                    withKeySerde(Serdes.String()).withValueSerde(equipmentSerde())
+                            withKeySerde(Serdes.String()).
+                            // a custom serde for this state store
+                                    withValueSerde(equipmentSerde())
             );
 
             KTable<String, Long> brandKTable = inputStream.
@@ -67,9 +69,9 @@ public class ApplianceStreamProcessing {
         };
     }
 
-    // a custom serde for the "QUIPMENT_STATE_STORE" state store
-    // Can compare its configuration with the contents in application.yml
-    public Serde<Equipment> equipmentSerde(){
+
+    // Can compare the following configuration properties with those defined in application.yml
+    public Serde<Equipment> equipmentSerde() {
         final JsonSerde<Equipment> equipmentJsonSerde = new JsonSerde<>();
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "csci318.demo.model.Equipment");
