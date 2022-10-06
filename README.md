@@ -1,4 +1,4 @@
-# Spring Cloud Stream for kafka Streams
+# Stream Processing with Spring Cloud Stream and Kafka Streams
 
 ### Apache Kafka Setup
 
